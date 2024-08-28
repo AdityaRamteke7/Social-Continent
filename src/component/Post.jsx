@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { likePost, commentPost, repostPost } from "../redux/postsSlice";
-import { FaThumbsUp, FaComment, FaRetweet } from "react-icons/fa";
+import { FaHeart, FaComment, FaRetweet, FaArrowCircleUp } from "react-icons/fa";
 import YouLogo from "../assets/YouLogo.jpeg";
+
+import { formatTimestamp } from "./constant";
 
 const Post = ({ post }) => {
   const dispatch = useDispatch();
@@ -12,13 +14,19 @@ const Post = ({ post }) => {
   const [comments, setComments] = useState(
     post.comments.comment ? [post.comments.comment] : []
   );
-  const [newComment, setNewComment] = useState(""); 
+  const [newComment, setNewComment] = useState("");
+  const [error, setError] = useState("");
 
   const handleLike = () => {
     dispatch(likePost(post.hash));
   };
 
   const handleAddComment = () => {
+    if (newComment.trim() === "") {
+      setError("required");
+      return;
+    }
+
     const comment = {
       text: newComment,
       author: {
@@ -29,6 +37,7 @@ const Post = ({ post }) => {
     };
     setComments([...comments, comment]);
     setNewComment("");
+    setError("");
   };
 
   return (
@@ -39,9 +48,9 @@ const Post = ({ post }) => {
           alt={`${post.author.display_name}'s avatar`}
           className="avatar"
         />
-        <div>@{post.author.display_name}</div>
+        <div> @{post.author.display_name}</div>
         <div className="post-username">
-          <p>{new Date(post.timestamp).toLocaleString()}</p>
+          <p>{formatTimestamp(post.timestamp)}</p>
         </div>
       </div>
 
@@ -60,13 +69,13 @@ const Post = ({ post }) => {
 
       <div className="post-footer">
         <button onClick={handleLike} className={post.isLiked ? "active" : ""}>
-          <FaThumbsUp /> Like ({post.likes.count})
+          <FaHeart /> Like {post.likes.count}
         </button>
         <button onClick={() => setShowComments(!showComments)}>
-          <FaComment /> Comment ({comments.length})
+          <FaComment /> Comment {comments.length}
         </button>
         <button onClick={() => dispatch(repostPost(post.hash))}>
-          <FaRetweet /> Repost ({post.reposts})
+          <FaRetweet /> Repost {post.reposts}
         </button>
       </div>
 
@@ -83,7 +92,8 @@ const Post = ({ post }) => {
                 <h4>{comment.author.display_name}</h4>
                 <p>{comment.text}</p>
                 <p className="timestamp">
-                  {new Date(comment.timestamp).toLocaleString()}
+                  {/* {new Date(comment.timestamp).toLocaleString()} */}
+                  {formatTimestamp(comment.timestamp)}
                 </p>
               </div>
             </div>
@@ -95,8 +105,14 @@ const Post = ({ post }) => {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Add a comment..."
+              required
             />
-            <button onClick={handleAddComment}>Submit</button>
+            <FaArrowCircleUp
+              size={"30px"}
+              color="white"
+              onClick={handleAddComment}
+            />
+            {/* {error && <p className="error-message">{error}</p>}  */}
           </div>
         </div>
       )}

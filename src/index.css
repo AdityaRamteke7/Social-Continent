@@ -9,7 +9,7 @@ body {
 .App h1 {
   position: relative;
   left: 29%;
-color: rebeccapurple;
+  color: rebeccapurple;
 }
 
 .timeline {
@@ -22,10 +22,7 @@ color: rebeccapurple;
 
 }
 
-.post-username p {
-  position: relative;
-  left: 18rem;
-}
+
 
 img {
   width: 100%;
@@ -50,6 +47,11 @@ img {
   margin-bottom: 10px;
 }
 
+.post-username p {
+  position: relative;
+  left: 22rem;
+}
+
 .avatar {
   width: 50px;
   height: 50px;
@@ -66,19 +68,22 @@ img {
 .post-footer button {
   background: none;
   border: none;
-  color: whitesmoke;
+  color: #737373;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   display: flex;
   align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .post-footer button.active {
-  color: rgb(142, 142, 243);
+  color: #e1306c;
+ 
 }
 
 .post-footer button:hover {
-  background-color: #414141;
+  transform: scale(0.9);
+  
 }
 
 .post-footer svg {
@@ -87,6 +92,10 @@ img {
 
 .post-images {
   margin-top: 15px;
+}
+
+.post-footer button:focus {
+  outline: none;
 }
 
 .post-image {
@@ -123,8 +132,39 @@ img {
 .timestamp {
   font-size: 12px;
   color: #777;
+  align-items: end;
 }
 
-.add-comment{
-  
+.add-comment {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.add-comment input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+}
+
+.add-comment button {
+  background-color: #3b5998;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: #2e4480;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+  padding: 2px;
 }
