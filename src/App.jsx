@@ -1,10 +1,9 @@
-
 import PostList from "./component/PostList";
 
 function App() {
   return (
     <div className="App">
-      <h1>Timeline</h1>
+      <h1>Social Continent Timeline</h1>
       <PostList />
     </div>
   );

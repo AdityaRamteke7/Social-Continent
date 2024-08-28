@@ -29,8 +29,12 @@ const postsSlice = createSlice({
     likePost: (state, action) => {
       const post = state.posts.find((post) => post.hash === action.payload);
       if (post) {
-        post.likes.count += 1;
-        post.isLiked = true;
+        if (post.isLiked) {
+          post.likes.count -= 1;
+        } else {
+          post.likes.count += 1;
+        }
+        post.isLiked = !post.isLiked;
       }
     },
     commentPost: (state, action) => {

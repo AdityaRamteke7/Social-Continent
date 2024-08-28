@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { likePost, commentPost, repostPost } from "../redux/postsSlice";
 import { FaThumbsUp, FaComment, FaRetweet } from "react-icons/fa";
+import YouLogo from "../assets/YouLogo.jpeg";
 
 const Post = ({ post }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,24 @@ const Post = ({ post }) => {
   const [comments, setComments] = useState(
     post.comments.comment ? [post.comments.comment] : []
   );
+  const [newComment, setNewComment] = useState(""); 
+
+  const handleLike = () => {
+    dispatch(likePost(post.hash));
+  };
+
+  const handleAddComment = () => {
+    const comment = {
+      text: newComment,
+      author: {
+        display_name: "You",
+        pfp: YouLogo,
+      },
+      timestamp: Date.now(),
+    };
+    setComments([...comments, comment]);
+    setNewComment("");
+  };
 
   return (
     <div className="post">
@@ -20,18 +39,12 @@ const Post = ({ post }) => {
           alt={`${post.author.display_name}'s avatar`}
           className="avatar"
         />
-        <div>
-          @{post.author.display_name}
-        </div>
+        <div>@{post.author.display_name}</div>
         <div className="post-username">
           <p>{new Date(post.timestamp).toLocaleString()}</p>
         </div>
       </div>
 
-      {/* Post Text */}
-      {post.text && <p>{post.text}</p>}
-
-      {/* Post Image */}
       {post.images.length > 0 && (
         <div className="post-images">
           {post.images.map((image, index) => (
@@ -45,9 +58,8 @@ const Post = ({ post }) => {
         </div>
       )}
 
-      {/* Post Footer with Icons */}
       <div className="post-footer">
-        <button onClick={() => dispatch(likePost(post.hash))}>
+        <button onClick={handleLike} className={post.isLiked ? "active" : ""}>
           <FaThumbsUp /> Like ({post.likes.count})
         </button>
         <button onClick={() => setShowComments(!showComments)}>
@@ -58,7 +70,6 @@ const Post = ({ post }) => {
         </button>
       </div>
 
-      {/* Comments Section */}
       {showComments && (
         <div className="post-comments">
           {comments.map((comment, index) => (
@@ -77,6 +88,16 @@ const Post = ({ post }) => {
               </div>
             </div>
           ))}
+
+          <div className="add-comment">
+            <input
+              type="text"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Add a comment..."
+            />
+            <button onClick={handleAddComment}>Submit</button>
+          </div>
         </div>
       )}
     </div>

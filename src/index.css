@@ -1,14 +1,15 @@
 body {
-  font-family: "sans-serif font";
+  font-family: "Nunito Sans";
   background-color: white;
   margin: 0;
   padding: 0;
+
 }
 
 .App h1 {
   position: relative;
-  left: 30%;
-  color: black;
+  left: 29%;
+color: rebeccapurple;
 }
 
 .timeline {
@@ -18,66 +19,29 @@ body {
   background: #110E18;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.post {
-  padding: 15px 0;
-  border-bottom: 1px solid #110E18;
-
-}
-
-.post-header {
-  display: flex;
-  align-items: start;
-  justify-content: start;
 
 }
 
 .post-username p {
   position: relative;
-  left: 16rem;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.post-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.post-footer button {
-  background: none;
-  border: none;
-  color: #3b5998;
-  cursor: pointer;
-}
-
-.post-footer button:hover {
-  text-decoration: underline;
+  left: 18rem;
 }
 
 img {
   width: 100%;
-  height: auto;
+  height: 95%;
   border-radius: 8px;
   margin-top: 10px;
   object-fit: cover;
 }
-
 
 .post {
   background: #110E18;
   margin: 20px 0;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   color: #BEBEC0;
+  box-shadow: 1px 1px 10px 0px #676768;
 }
 
 .post-header {
@@ -102,15 +66,19 @@ img {
 .post-footer button {
   background: none;
   border: none;
-  color: #3b5998;
+  color: whitesmoke;
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
 }
 
+.post-footer button.active {
+  color: rgb(142, 142, 243);
+}
+
 .post-footer button:hover {
-  text-decoration: underline;
+  background-color: #414141;
 }
 
 .post-footer svg {
@@ -155,4 +123,8 @@ img {
 .timestamp {
   font-size: 12px;
   color: #777;
+}
+
+.add-comment{
+  
 }
