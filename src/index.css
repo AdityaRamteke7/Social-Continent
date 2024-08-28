@@ -187,6 +187,28 @@ img {
   padding: 2px;
 }
 
+.post-skeleton {
+  padding: 10px;
+  border: 1px solid #7d7d7d;
+  border-radius: 8px;
+  background-color: #cdcdcd;
+}
+
+.post-header-skeleton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.post-media-skeleton {
+  margin-bottom: 20px;
+}
+
+.post-footer-skeleton {
+  display: flex;
+  gap: 20px;
+}
+
 
 @media (max-width: 768px) {
   .timeline {
