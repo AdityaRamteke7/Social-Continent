@@ -39,8 +39,7 @@ const PostList = () => {
   return (
     <div className="timeline">
       {status === "loading"
-        ? // Render multiple skeletons to simulate a loading list of posts
-          Array.from({ length: 5 }).map((_, index) => (
+        ? Array.from({ length: 5 }).map((_, index) => (
             <PostSkeleton key={index} />
           ))
         : posts.map((post) => <Post key={post.hash} post={post} />)}
