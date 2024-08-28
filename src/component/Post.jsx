@@ -1,37 +1,40 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { likePost, commentPost, repostPost } from "../redux/postsSlice";
+import { FaThumbsUp, FaComment, FaRetweet } from "react-icons/fa";
 
 const Post = ({ post }) => {
   const dispatch = useDispatch();
-
-  const { author, text, images, likes, comments, timestamp } = post;
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState(
+    post.comments.comment ? [post.comments.comment] : []
+  );
 
   return (
     <div className="post">
       <div className="post-header">
         <img
-          src={author.pfp}
-          alt={`${author.display_name}'s avatar`}
+          src={post.author.pfp}
+          alt={`${post.author.display_name}'s avatar`}
           className="avatar"
         />
         <div>
-          <h3>{author.display_name}</h3>
-          <p>
-            @{author.username} · {new Date(timestamp).toLocaleString()}
-          </p>
+          @{post.author.display_name}
+        </div>
+        <div className="post-username">
+          <p>{new Date(post.timestamp).toLocaleString()}</p>
         </div>
       </div>
 
       {/* Post Text */}
-      {text && <p>{text}</p>}
+      {post.text && <p>{post.text}</p>}
 
       {/* Post Image */}
-      {images.length > 0 && (
+      {post.images.length > 0 && (
         <div className="post-images">
-          {images.map((image, index) => (
+          {post.images.map((image, index) => (
             <img
               key={index}
               src={image.url}
@@ -42,37 +45,38 @@ const Post = ({ post }) => {
         </div>
       )}
 
-      {/* Post Footer */}
+      {/* Post Footer with Icons */}
       <div className="post-footer">
         <button onClick={() => dispatch(likePost(post.hash))}>
-          Like ({likes.count})
+          <FaThumbsUp /> Like ({post.likes.count})
         </button>
-        <button onClick={() => dispatch(commentPost(post.hash))}>
-          Comment ({comments.count})
+        <button onClick={() => setShowComments(!showComments)}>
+          <FaComment /> Comment ({comments.length})
         </button>
         <button onClick={() => dispatch(repostPost(post.hash))}>
-          Repost ({post.reposts})
+          <FaRetweet /> Repost ({post.reposts})
         </button>
       </div>
 
       {/* Comments Section */}
-      {comments.count > 0 && (
+      {showComments && (
         <div className="post-comments">
-          <p>Latest Comment:</p>
-          <div className="comment">
-            <img
-              src={comments.comment.author.pfp}
-              alt={`${comments.comment.author.display_name}'s avatar`}
-              className="comment-avatar"
-            />
-            <div>
-              <h4>{comments.comment.author.display_name}</h4>
-              <p>{comments.comment.text}</p>
-              <p className="timestamp">
-                {new Date(comments.comment.timestamp).toLocaleString()}
-              </p>
+          {comments.map((comment, index) => (
+            <div key={index} className="comment">
+              <img
+                src={comment.author.pfp}
+                alt={`${comment.author.display_name}'s avatar`}
+                className="comment-avatar"
+              />
+              <div>
+                <h4>{comment.author.display_name}</h4>
+                <p>{comment.text}</p>
+                <p className="timestamp">
+                  {new Date(comment.timestamp).toLocaleString()}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       )}
     </div>
