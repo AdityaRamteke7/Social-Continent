@@ -19,3 +19,5 @@ export const formatTimestamp = (timestamp) => {
     // return `${formattedDate} at ${formattedTime}`;
     return formattedTime
 };
+
+export default formatTimestamp;

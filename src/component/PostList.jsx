@@ -15,24 +15,14 @@ const PostList = () => {
     if (status === "idle") {
       dispatch(fetchPosts());
     }
-  }, []);
+  }, [dispatch, status]);
 
   return (
     <div className="timeline">
       {status === "loading" ? (
         <>
-          <Skeleton
-            animation="wave"
-            variant="circular"
-            width={40}
-            height={40}
-          />
-          <Skeleton
-            animation="wave"
-            variant="circular"
-            width={40}
-            height={40}
-          />
+          <Skeleton animation="wave" width={30} height={30} />
+          <Skeleton animation="wave" width={"100%"} height={20} />
         </>
       ) : (
         posts.map((post) => <Post key={post.hash} post={post} />)
